@@ -554,11 +554,11 @@ def parse_warzone_tracker():
 
     for final_df in final_dfs:
         # for local
-        filename_historic = f'/Users/brianshin/brian/tinker/brian_dwh/codwarzone/output/{final_df[0]}/{final_df[0]}_'+today_id.replace('-','')+'.csv'
-        filename = f'/Users/brianshin/brian/tinker/brian_dwh/codwarzone/output/{final_df[0]}.csv'
+        # filename_historic = f'/Users/brianshin/brian/tinker/brian_dwh/codwarzone/output/{final_df[0]}/{final_df[0]}_'+today_id.replace('-','')+'.csv'
+        filename = f'/Users/brianshin/brian/tinker/brian_airflow_local/output/codwarzone/{final_df[0]}.csv'
         file = final_df[1]
         output_filename = f'{final_df[0]}/{final_df[0]}_{today}.csv'
-        file.to_csv(filename_historic, index=False, encoding='utf-8')
+        # file.to_csv(filename_historic, index=False, encoding='utf-8')
         file.to_csv(filename, index=False, encoding='utf-8')
         # for s3
         # load_s3(s3_bucket=s3_bucket, input_filename=filename, output_filename=output_filename)

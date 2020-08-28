@@ -22,7 +22,7 @@ import argparse
 
 
 today = dt.datetime.now().strftime("%Y-%m-%d")
-os.chdir('/Users/brianshin/brian/tinker/brian_dwh/codwarzone/output')
+os.chdir('/Users/brianshin/brian/tinker/brian_airflow_local/output/codwarzone/')
 
 def create_connection(drop=True):
   """
@@ -293,8 +293,8 @@ def game_stats_dim(conn):
                 stats.game_id || '_' || replace(stats.gamer_id, '#', '_'),
             	stats.game_id,
             	stats.gamer_id,
-            	stats.game_date,
-            	stats.game_time,
+            	details.game_date,
+            	details.game_time,
             	stats.kills,
             	stats.deaths,
             	stats.assists,
@@ -331,9 +331,9 @@ def game_stats_dim(conn):
         		CURRENT_TIMESTAMP,
         		CURRENT_TIMESTAMP
         	FROM game_stats_staging stats
-        	LEFT JOIN game_details_staging details ON stats.game_id = details.game_id
+        	INNER JOIN game_details_staging details ON stats.game_id = details.game_id
         	WHERE TRUE
-        	ORDER BY stats.game_date ASC, details.game_time ASC
+        	ORDER BY details.game_date ASC, details.game_time ASC
         ON CONFLICT(game_stats_id) DO UPDATE SET
             game_id = excluded.game_id,
         	gamer_id = excluded.gamer_id,
